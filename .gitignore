@@ -1,0 +1,97 @@
+HELP.md
+logs/
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Java ###
+# Compiled classes
+*.class
+*.ctxt
+.mtj.tmp/
+
+# Packaged artifacts
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.mvn/timing.properties
+
+# Gradle
+.gradle/
+gradle-app.setting
+.gradletasknamecache
+**/build/
+# Keep the Gradle wrapper (must stay after *.jar)
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
+# Generated sources / annotation processing
+generated/
+.apt_generated_tests/
+
+### Logs ###
+*.log
+*.log.gz
+
+### OS files ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### Local env / secrets ###
+.env
+.env.*
+application-local.properties
+
+### Misc ###
+*.tmp
+*.bak
+*.swp
+hs_err_pid*
+replay_pid*

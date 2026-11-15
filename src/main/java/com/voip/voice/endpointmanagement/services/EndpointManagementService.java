@@ -1,10 +1,10 @@
-package com.voip.voice.endpoint.services;
+package com.voip.voice.endpointmanagement.services;
 
 import com.voip.voice.auth.repositories.UserRepository;
-import com.voip.voice.endpoint.dtos.EndpointDetails;
-import com.voip.voice.endpoint.interfaces.EndpointCRUDInterface;
-import com.voip.voice.endpoint.interfaces.EndpointRetrieveInterface;
-import com.voip.voice.endpoint.repositories.EndpointRepository;
+import com.voip.voice.endpointmanagement.dtos.EndpointDetails;
+import com.voip.voice.endpointmanagement.interfaces.EndpointCRUDInterface;
+import com.voip.voice.endpointmanagement.interfaces.EndpointRetrieveInterface;
+import com.voip.voice.endpointmanagement.repositories.EndpointRepository;
 import com.voip.voice.entities.Endpoint;
 import com.voip.voice.entities.User;
 import org.springframework.stereotype.Service;

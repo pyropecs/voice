@@ -1,6 +1,6 @@
-package com.voip.voice.endpoint.interfaces;
+package com.voip.voice.endpointmanagement.interfaces;
 
-import com.voip.voice.endpoint.dtos.EndpointDetails;
+import com.voip.voice.endpointmanagement.dtos.EndpointDetails;
 
 public interface EndpointCRUDInterface {
     public String createEndpoint(EndpointDetails endpointCreateDetails) throws Exception;

@@ -1,4 +1,4 @@
-package com.voip.voice.endpoint.dtos;
+package com.voip.voice.endpointmanagement.dtos;
 
 public record EndpointResponseDetails(String message) {
 }

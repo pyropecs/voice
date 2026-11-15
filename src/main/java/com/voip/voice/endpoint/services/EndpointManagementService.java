@@ -53,15 +53,11 @@ public class EndpointManagementService implements EndpointCRUDInterface, Endpoin
         if(endpointCreateDetails.sipServer().isEmpty()) {
             return "Please Enter the Sip Server Address";
         }
-        // Load the existing row so save() issues an UPDATE instead of a new INSERT
         Endpoint endpoint = endpointRepository.findByEndpoint(endpointCreateDetails.phoneNumber());
         if(endpoint == null) {
             return "Endpoint " + endpointCreateDetails.phoneNumber() + " not found";
         }
         User user = userRepository.getUserByUsername(endpointCreateDetails.username());
-        if(user == null) {
-            return "User not found";
-        }
         endpoint.setPassword(endpointCreateDetails.password());
         endpoint.setSipServer(endpointCreateDetails.sipServer());
         endpoint.setUser(user);

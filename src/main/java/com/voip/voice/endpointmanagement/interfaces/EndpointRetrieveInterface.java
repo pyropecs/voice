@@ -1,4 +1,4 @@
-package com.voip.voice.endpoint.interfaces;
+package com.voip.voice.endpointmanagement.interfaces;
 
 import com.voip.voice.entities.Endpoint;
 

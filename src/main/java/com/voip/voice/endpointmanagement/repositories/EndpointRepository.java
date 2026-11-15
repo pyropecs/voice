@@ -1,4 +1,4 @@
-package com.voip.voice.endpoint.repositories;
+package com.voip.voice.endpointmanagement.repositories;
 
 import com.voip.voice.entities.Endpoint;
 import org.springframework.data.jpa.repository.JpaRepository;

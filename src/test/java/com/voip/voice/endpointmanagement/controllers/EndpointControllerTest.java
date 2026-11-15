@@ -1,8 +1,7 @@
-package com.voip.voice.endpoint.controllers;
+package com.voip.voice.endpointmanagement.controllers;
 
-import com.voip.voice.endpoint.dtos.EndpointDetails;
-import com.voip.voice.endpoint.dtos.EndpointResponseDetails;
-import com.voip.voice.endpoint.services.EndpointManagementService;
+import com.voip.voice.endpointmanagement.dtos.EndpointDetails;
+import com.voip.voice.endpointmanagement.services.EndpointManagementService;
 import com.voip.voice.entities.Endpoint;
 
 import org.junit.jupiter.api.Test;

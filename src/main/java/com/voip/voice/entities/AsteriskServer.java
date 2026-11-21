@@ -1,5 +1,6 @@
 package com.voip.voice.entities;
 
+import com.voip.voice.enums.asterisk.AsteriskServerState;
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +29,10 @@ public class AsteriskServer {
 
     @Column(nullable = false)
     private String realtimeDatabaseUser;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false,name = "status")
+    private AsteriskServerState asteriskServerState;
 
     public int getId() {
         return id;
@@ -83,5 +88,13 @@ public class AsteriskServer {
 
     public void setRealtimeDatabaseUser(String realtimeDatabaseUser) {
         this.realtimeDatabaseUser = realtimeDatabaseUser;
+    }
+
+    public AsteriskServerState getAsteriskServerState() {
+        return asteriskServerState;
+    }
+
+    public void setAsteriskServerState(AsteriskServerState asteriskServerState) {
+        this.asteriskServerState = asteriskServerState;
     }
 }

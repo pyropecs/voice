@@ -1,12 +1,15 @@
 package com.voip.voice.asterisk.asteriskserver.services;
 
-import com.voip.voice.asterisk.asteriskserver.dtos.AsteriskServerRequestDetails;
+import com.voip.voice.asterisk.asteriskserver.dtos.AsteriskServerDetails;
 import com.voip.voice.asterisk.asteriskserver.repositories.AsteriskServerRepository;
 import com.voip.voice.entities.AsteriskServer;
+import com.voip.voice.enums.asterisk.AsteriskServerState;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @Service
 public class AsteriskServerService {
@@ -18,25 +21,30 @@ public class AsteriskServerService {
     }
 
     @Transactional
-    public boolean createAsteriskServer(AsteriskServerRequestDetails asteriskServerRequestDetails){
+    public String createAsteriskServer(AsteriskServerDetails asteriskServerRequestDetails){
+        if(!asteriskServerRepository.existsByIpAddress(asteriskServerRequestDetails.ipAddress())){
+            AsteriskServer asteriskServer = new AsteriskServer();
+            asteriskServer.setSshUsername(asteriskServerRequestDetails.sshUsername());
+            asteriskServer.setSshPassword(asteriskServerRequestDetails.sshPassword());
+            asteriskServer.setIpAddress(asteriskServerRequestDetails.ipAddress());
+            String ASTERISK_DATABASE_NAME = "voice_asterisk";
+            asteriskServer.setRealtimeDatabaseName(ASTERISK_DATABASE_NAME);
+            String ASTERISK_DATABASE_PASSWORD = "asterisk";
+            asteriskServer.setRealtimeDatabasePassword(ASTERISK_DATABASE_PASSWORD);
+            String ASTERISK_DATABASE_USERNAME = "asterisk_voip";
+            asteriskServer.setRealtimeDatabaseUser(ASTERISK_DATABASE_USERNAME);
+            asteriskServer.setAsteriskServerState(AsteriskServerState.PENDING);
+            asteriskServerRepository.save(asteriskServer);
+        }else{
+            return "Asterisk Server already exists";
+        }
 
-        AsteriskServer asteriskServer = new AsteriskServer();
-        asteriskServer.setSshUsername(asteriskServerRequestDetails.sshUsername());
-        asteriskServer.setSshPassword(asteriskServerRequestDetails.sshPassword());
-        asteriskServer.setIpAddress(asteriskServerRequestDetails.ipAddress());
-        String ASTERISK_DATABASE_NAME = "voice_asterisk";
-        asteriskServer.setRealtimeDatabaseName(ASTERISK_DATABASE_NAME);
-        String ASTERISK_DATABASE_PASSWORD = "asterisk";
-        asteriskServer.setRealtimeDatabaseName(ASTERISK_DATABASE_PASSWORD);
-        String ASTERISK_DATABASE_USERNAME = "asterisk_voip";
-        asteriskServer.setRealtimeDatabaseName(ASTERISK_DATABASE_USERNAME);
-       AsteriskServer asteriskServerResult = asteriskServerRepository.save(asteriskServer);
-       return true;
+       return "Asterisk server created Successfully";
 
     }
 
     @Transactional
-    public boolean updateAsteriskServer(int id,AsteriskServerRequestDetails asteriskServerRequestDetails){
+    public boolean updateAsteriskServer(int id, AsteriskServerDetails asteriskServerRequestDetails){
         AsteriskServer asteriskServer = asteriskServerRepository.findById(id).get();
         asteriskServer.setSshUsername(asteriskServerRequestDetails.sshUsername());
         asteriskServer.setSshPassword(asteriskServerRequestDetails.sshPassword());
@@ -46,22 +54,52 @@ public class AsteriskServerService {
     }
 
     @Transactional
-    public boolean deleteAsteriskServer(int id){
-        AsteriskServer asteriskServer = asteriskServerRepository.findById(id).get();
+    public String deleteAsteriskServer(int id){
+        Optional<AsteriskServer> asteriskServerResult = asteriskServerRepository.findById(id);
+
+        if(asteriskServerResult.isPresent()){
+            AsteriskServer asteriskServer = asteriskServerResult.get();
         asteriskServerRepository.delete(asteriskServer);
-        return true;
+        return "Asterisk server deleted Successfully";
+        }else{
+            return "Asterisk Server Not Found";
+        }
     }
 
-    public AsteriskServer getAsteriskServer(int id){
-        return asteriskServerRepository.findById(id).get();
+    public AsteriskServerDetails getAsteriskServer(int id){
+       Optional<AsteriskServer> asteriskServerResult = asteriskServerRepository.findById(id);
+       if(asteriskServerResult.isPresent()){
+           AsteriskServer asteriskServer = asteriskServerResult.get();
+           return new AsteriskServerDetails(asteriskServer.getIpAddress(), asteriskServer.getSshUsername(), asteriskServer.getSshPassword());
+       }else {
+            return null;
+       }
+
     }
 
-    public List<AsteriskServer> getAllAsteriskServers(){
-        return asteriskServerRepository.findAll();
+    public List<AsteriskServerDetails> getAllAsteriskServers(){
+        List<AsteriskServer> asteriskServers = asteriskServerRepository.findAll();
+        return asteriskServers.stream()
+                .map(asteriskServer -> new AsteriskServerDetails(asteriskServer.getIpAddress(),asteriskServer.getSshUsername(),asteriskServer.getSshPassword()) ).toList();
     }
-    public AsteriskServer getAsteriskServerByIPaddress(String ipAddress ){
-    return asteriskServerRepository.getByIpAddress(ipAddress);
+    public AsteriskServerDetails getAsteriskServerByIPaddress(String ipAddress ){
+        Optional<AsteriskServer> asteriskServerResult =asteriskServerRepository.findByIpAddress(ipAddress);
+        if(asteriskServerResult.isPresent()){
+            AsteriskServer asteriskServer = asteriskServerResult.get();
+            return new AsteriskServerDetails(asteriskServer.getIpAddress(), asteriskServer.getSshUsername(), asteriskServer.getSshPassword());
+        }else{
+            return null;
+        }
+
+
+
     }
+
+    public AsteriskServer getAsteriskServerByItsState(AsteriskServerState asteriskServerState){
+        Optional<AsteriskServer> asteriskServer = asteriskServerRepository.findByAsteriskServerStateOrderByAsc(asteriskServerState);
+        return asteriskServer.orElse(null);
+    }
+
 
 
 }

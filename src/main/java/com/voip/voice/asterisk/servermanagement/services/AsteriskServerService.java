@@ -1,7 +1,7 @@
-package com.voip.voice.asterisk.asteriskserver.services;
+package com.voip.voice.asterisk.servermanagement.services;
 
-import com.voip.voice.asterisk.asteriskserver.dtos.AsteriskServerDetails;
-import com.voip.voice.asterisk.asteriskserver.repositories.AsteriskServerRepository;
+import com.voip.voice.asterisk.servermanagement.dtos.AsteriskServerDetails;
+import com.voip.voice.asterisk.servermanagement.repositories.AsteriskServerRepository;
 import com.voip.voice.entities.AsteriskServer;
 import com.voip.voice.enums.asterisk.AsteriskServerState;
 import org.springframework.stereotype.Service;
@@ -96,8 +96,13 @@ public class AsteriskServerService {
     }
 
     public AsteriskServer getAsteriskServerByItsState(AsteriskServerState asteriskServerState){
-        Optional<AsteriskServer> asteriskServer = asteriskServerRepository.findByAsteriskServerStateOrderByAsc(asteriskServerState);
+        Optional<AsteriskServer> asteriskServer = asteriskServerRepository.findFirstByAsteriskServerStateOrderByIdAsc(asteriskServerState);
         return asteriskServer.orElse(null);
+    }
+
+    /** All servers in the given state, oldest (lowest id) first. */
+    public List<AsteriskServer> getAsteriskServersByItsState(AsteriskServerState asteriskServerState) {
+        return asteriskServerRepository.findAllByAsteriskServerStateOrderByIdAsc(asteriskServerState);
     }
 
 

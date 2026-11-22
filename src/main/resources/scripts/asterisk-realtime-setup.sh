@@ -29,13 +29,13 @@
 set -Eeuo pipefail
 
 # ----------------------------- defaults --------------------------------------
-SIP_IP="$1"
+SIP_IP=""
 DB_HOST="localhost"
 DB_PORT="3306"
-DB_NAME="$2"
-DB_USER="$3"
+DB_NAME=""
+DB_USER=""
 DB_PASS="${AST_DB_PASS:-}"        # or env AST_DB_PASS (keeps it out of `ps`)
-DB_ROOT_PASS="$4"            # empty = use unix_socket auth as root
+DB_ROOT_PASS=""            # empty = use unix_socket auth as root
 DSN_NAME="asterisk"
 ODBC_POOL_ID="asterisk"    # id used in res_odbc.conf / extconfig.conf
 SIP_PORT="5060"

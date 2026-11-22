@@ -1,8 +1,8 @@
-package com.voip.voice.asterisk.asteriskserver.controllers;
+package com.voip.voice.asterisk.servermanagement.controllers;
 
-import com.voip.voice.asterisk.asteriskserver.dtos.AsteriskServerDetails;
-import com.voip.voice.asterisk.asteriskserver.dtos.AsteriskServerResponseDetails;
-import com.voip.voice.asterisk.asteriskserver.services.AsteriskServerService;
+import com.voip.voice.asterisk.servermanagement.dtos.AsteriskServerDetails;
+import com.voip.voice.asterisk.servermanagement.dtos.AsteriskServerResponseDetails;
+import com.voip.voice.asterisk.servermanagement.services.AsteriskServerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

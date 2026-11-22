@@ -1,4 +1,4 @@
-package com.voip.voice.asterisk.asteriskserver.dtos;
+package com.voip.voice.asterisk.servermanagement.dtos;
 
 public record AsteriskServerResponseDetails(String message) {
 }
